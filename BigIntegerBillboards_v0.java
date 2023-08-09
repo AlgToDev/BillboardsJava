@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.BigInteger;
 
-public class BigIntegerBillboards {
+public class BigIntegerBillboards_v0 {
 
 
 

@@ -54,15 +54,15 @@ public static long billboards(int k, List<Integer> revenue) {
         }
     }
     
-
-    BigInteger min_x = dp[N - (k + 1)];
+    // minimum revenue loss between N - (k + 1) and N - 1 (end of array)
+    BigInteger min_rev_loss = dp[N - (k + 1)];
     for (int i = N - k; i < N; i++) {
-        if (dp[i].compareTo(min_x) < 0) {
-            min_x = dp[i];
+        if (dp[i].compareTo(min_rev_loss) < 0) {
+            min_rev_loss = dp[i];
         }
     }
     
-    BigInteger res= total.subtract(min_x);
+    BigInteger res= total.subtract(min_rev_loss);
     return res.longValue();
 
 }
