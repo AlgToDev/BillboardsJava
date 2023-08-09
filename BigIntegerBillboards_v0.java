@@ -18,47 +18,43 @@ public static long billboards(int k, List<Integer> revenue) {
     for (int r : revenue_arr) {
         total = total.add(BigInteger.valueOf(r));
     }
-
-    BigInteger[] dp = new BigInteger[N];
     
     if (k == N) {
         return total.longValue();
     } 
+    BigInteger[] x = new BigInteger[N];
     
     for (int i = 0; i < k + 1; i++) {
-        dp[i] = BigInteger.valueOf(revenue_arr[i]);
+        x[i] = BigInteger.valueOf(revenue_arr[i]);
     }
     
-    BigInteger min_value = dp[0];
+    BigInteger min_value = x[0];
     int min_index = 0;
     
     for (int i = k + 1; i < N; i++) {
         if (i - min_index >= k) {
-            min_value = dp[i - (k + 1)];
+            min_value = x[i - (k + 1)];
             min_index = i - (k + 1);
-
             for (int j = i - k; j < i; j++) {
-                if (dp[j].compareTo(min_value) < 0) {
-
-                    min_value = dp[j];
+                if (x[j].compareTo(min_value) < 0) {
+                    min_value = x[j];
                     min_index = j;
                 }
             }
         }
         
-        dp[i] = min_value.add(BigInteger.valueOf(revenue_arr[i]));
+        x[i] = min_value.add(BigInteger.valueOf(revenue_arr[i]));
         
-        if (dp[i].compareTo(min_value) < 0) {
-            min_value = dp[i];
+        if (x[i].compareTo(min_value) < 0) {
+            min_value = x[i];
             min_index = i;
         }
     }
     
-
-    BigInteger min_x = dp[N - (k + 1)];
+    BigInteger min_x = x[N - (k + 1)];
     for (int i = N - k; i < N; i++) {
-        if (dp[i].compareTo(min_x) < 0) {
-            min_x = dp[i];
+        if (x[i].compareTo(min_x) < 0) {
+            min_x = x[i];
         }
     }
     
