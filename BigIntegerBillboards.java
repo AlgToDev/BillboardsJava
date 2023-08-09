@@ -3,6 +3,7 @@ import java.util.List;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import java.math.BigInteger;
 
 public class BigIntegerBillboards {
@@ -20,6 +21,7 @@ public static long billboards(int k, List<Integer> revenue) {
     }
 
     BigInteger[] dp = new BigInteger[N];
+    //dp[i] represents the minimum sum of revenues of any k consecutive billboards that end at index i. That is, the smallest amount of money that company has to lose by removing k billboards in a row from revenue[0, i]. 
     
     if (k == N) {
         return total.longValue();
@@ -29,28 +31,35 @@ public static long billboards(int k, List<Integer> revenue) {
         dp[i] = BigInteger.valueOf(revenue_arr[i]);
     }
     
-    BigInteger min_value = dp[0];
-    int min_index = 0;
+    BigInteger min_val = dp[0];
+    int min_idx = 0;
     
+    // dp[i] = min(dp[i - k - 1], ..., dp[i - 1]) + revenue[i]
+
+    //The double for loop computes the minimum min(dp[i - k - 1 : i])
+    //O(nk)
     for (int i = k + 1; i < N; i++) {
-        if (i - min_index >= k) {
-            min_value = dp[i - (k + 1)];
-            min_index = i - (k + 1);
+        if (i - min_idx >= k) {
+            min_val = dp[i - (k + 1)];
+            min_idx = i - (k + 1);
 
             for (int j = i - k; j < i; j++) {
-                if (dp[j].compareTo(min_value) < 0) {
+                if (dp[j].compareTo(min_val) < 0) {
 
-                    min_value = dp[j];
-                    min_index = j;
+                    min_val = dp[j];
+                    min_idx = j;
                 }
             }
         }
+        //dp[i] = min(dp[i - k - 1], ..., dp[i - 1]) + revenue[i]
+        dp[i] = min_val.add(BigInteger.valueOf(revenue_arr[i]));
+
+        System.out.println("dp[" + i + "] = " + dp[i]);
         
-        dp[i] = min_value.add(BigInteger.valueOf(revenue_arr[i]));
-        
-        if (dp[i].compareTo(min_value) < 0) {
-            min_value = dp[i];
-            min_index = i;
+        //update min_val and min_index
+        if (dp[i].compareTo(min_val) < 0) {
+            min_val = dp[i];
+            min_idx = i;
         }
     }
     
@@ -75,13 +84,13 @@ public static long billboards(int k, List<Integer> revenue) {
 
 public static void main(String[] args) {
     // Test case
-    //int k = 5;
+    //int k = 2;
     //int[] revenue = {6, 7, 12, 13, 14};
 
 
     Scanner scanner = new Scanner(System.in);
-    int k = scanner.nextInt();
     int n = scanner.nextInt();
+    int k = scanner.nextInt();
     int[] revenue = new int[n];
     for(int i = 0; i < n; i++){
         revenue[i] = scanner.nextInt();
@@ -94,7 +103,7 @@ public static void main(String[] args) {
         revenue_list.add(revenue[i]);
     }
 
-    System.out.println(Billboards.billboards(k, revenue_list));
+    System.out.println(BigIntegerBillboards.billboards(k, revenue_list));
 }
 
 }
