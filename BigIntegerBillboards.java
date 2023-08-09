@@ -72,15 +72,15 @@ public static long billboards(int k, List<Integer> revenue) {
     }
 
     //print revenue
-    System.out.println("revenue = " + Arrays.toString(revenue_arr));
+    //System.out.println("revenue = " + Arrays.toString(revenue_arr));
     //print dp
-    System.out.println("dp = " + Arrays.toString(dp));
+    //System.out.println("dp = " + Arrays.toString(dp));
 
     //print total
-    System.out.println("total = " + total);
+    //System.out.println("total = " + total);
 
     //print min_rev_loss
-    System.out.println("min_rev_loss = " + min_rev_loss);
+    //System.out.println("min_rev_loss = " + min_rev_loss);
     
     BigInteger res= total.subtract(min_rev_loss);
     return res.longValue();
