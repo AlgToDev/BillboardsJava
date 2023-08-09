@@ -76,12 +76,12 @@ public static long billboards(int k, List<Integer> revenue) {
     
     // minimum revenue loss between N - (k + 1) and N - 1 (end of array) (last k position )
 
-    //dp[N-1] is a valid solution, this contains the min_revenue_loss such that N-1 th billboard is removed and everything before is removed optimally, and k-constraint is satisifed
+    //dp[N-1] is a valid candidate solution, this contains the min_revenue_loss such that N-1 th billboard is removed and everything before is removed optimally, and k-constraint is satisifed
     //What if N-1 is expensive to remove
     //Any of the last k billboards can be removed and k-constraint is still satisfied.
     //Might as well choose the dp[i] that costs the least aka has the minimum revenue loss
 
-    //choose the minimum dp[i]
+    //choose the minimum dp[i] between N - (k) and N - 1
     BigInteger min_rev_loss = dp[N - (k + 1)];
 
     for (int i = N - k; i < N; i++) {
