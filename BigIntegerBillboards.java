@@ -21,7 +21,7 @@ public static long billboards(int k, List<Integer> revenue) {
     }
 
     BigInteger[] dp = new BigInteger[N];
-    //dp[i] represents the minimum sum of revenues of any k consecutive billboards that end at index i. That is, the smallest amount of money that company has to lose by removing k billboards in a row from revenue[0, i]. 
+    //dp[i] represents the minimum loss when we remove revenue i and the positions before optimally to respect the k constraint. That is, the smallest amount of money that company has to lose by removing k billboards in a row from revenue[0, i]. 
     
     if (k == N) {
         return total.longValue();
@@ -70,6 +70,17 @@ public static long billboards(int k, List<Integer> revenue) {
             min_rev_loss = dp[i];
         }
     }
+
+    //print revenue
+    System.out.println("revenue = " + Arrays.toString(revenue_arr));
+    //print dp
+    System.out.println("dp = " + Arrays.toString(dp));
+
+    //print total
+    System.out.println("total = " + total);
+
+    //print min_rev_loss
+    System.out.println("min_rev_loss = " + min_rev_loss);
     
     BigInteger res= total.subtract(min_rev_loss);
     return res.longValue();
@@ -107,3 +118,33 @@ public static void main(String[] args) {
 }
 
 }
+
+/*    
+6 2
+1
+2
+3
+1
+6
+10
+
+
+6 2
+1
+2
+3
+3
+6
+10
+
+7 2
+1
+2
+3
+3
+6
+10
+12
+
+
+*/ 
